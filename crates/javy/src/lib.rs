@@ -49,6 +49,7 @@ pub mod alloc;
 mod config;
 mod runtime;
 mod serde;
+pub mod callback;
 
 use anyhow::{anyhow, Error, Result};
 use rquickjs::{

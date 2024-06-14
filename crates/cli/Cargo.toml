@@ -32,6 +32,7 @@ wit-parser = "0.209.1"
 convert_case = "0.6.0"
 wasm-opt = "0.116.1"
 tempfile = "3.10.1"
+javy = { workspace = true }
 clap = { version = "4.5.7", features = ["derive"] }
 
 [dev-dependencies]

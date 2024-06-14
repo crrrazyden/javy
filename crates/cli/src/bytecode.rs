@@ -1,6 +1,11 @@
 use anyhow::{anyhow, Result};
 use wasi_common::{sync::WasiCtxBuilder, WasiCtx};
 use wasmtime::{Engine, Instance, Linker, Memory, Module, Store};
+use javy::callback::CallbackFuncType;
+
+const EMPTY_FUNC: CallbackFuncType = |_,_| {
+    0
+};
 
 pub const QUICKJS_PROVIDER_MODULE: &[u8] =
     include_bytes!(concat!(env!("OUT_DIR"), "/provider.wasm"));
@@ -22,6 +27,7 @@ fn create_wasm_env() -> Result<(Store<WasiCtx>, Instance, Memory)> {
         &mut linker,
         |s| s,
     )?;
+    linker.func_wrap("env", "__callback", EMPTY_FUNC)?;
     let wasi = WasiCtxBuilder::new().inherit_stderr().build();
     let mut store = Store::new(&engine, wasi);
     let instance = linker.instantiate(&mut store, &module)?;

@@ -4,6 +4,7 @@ use crate::{
     apis::{Console, NonStandardConsole, Random, StreamIO, TextEncoding},
     config::{JSIntrinsics, JavyIntrinsics},
     Config,
+    callback::Callback,
 };
 
 #[cfg(feature = "json")]
@@ -143,6 +144,11 @@ impl Runtime {
                 unsafe {
                     JavyJson::add_intrinsic(ctx.as_raw())
                 }
+            }
+            
+            unsafe { 
+                Callback::enable();
+                Callback::add_intrinsic(ctx.as_raw());
             }
         });
 
