@@ -1,9 +1,8 @@
 use anyhow::{anyhow, Result};
 use wasi_common::{sync::WasiCtxBuilder, WasiCtx};
 use wasmtime::{Engine, Instance, Linker, Memory, Module, Store};
-use javy::callback::CallbackFuncType;
 
-const EMPTY_FUNC: CallbackFuncType = |_,_| {
+const EMPTY_FUNC:  fn (i32, i32) -> i64 = |_,_| {
     0
 };
 
